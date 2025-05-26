@@ -50,23 +50,20 @@ public class Main {
 
             Address addressEntered = new Address(inputCountry, inputCity);
 
-            if (costPerAddress.containsKey(addressEntered)) {
-                for (Map.Entry<Address, Integer> keyAndValue : costPerAddress.entrySet()) {
-                    if (keyAndValue.getKey().equals(addressEntered)) {
-                        costOfDelivery = productWeight * keyAndValue.getValue();
-                        amountOrders += costOfDelivery;
+            Integer costPerKg = costPerAddress.get(addressEntered);
 
-                        uniqueCountries.add(keyAndValue.getKey().country);
+            if (costPerKg != null) {
+                costOfDelivery = productWeight * costPerKg;
+                amountOrders += costOfDelivery;
 
-                        System.out.println("Стоимость доставки составит: " +
-                                costOfDelivery + " руб.");
-                        System.out.println("Общая стоимость всех доставок: " +
-                                amountOrders + " руб.");
-                        System.out.println("Количество стран, в которые направятся посылки: " +
-                                uniqueCountries.size());
-                        break;
-                    }
-                }
+                uniqueCountries.add(inputCountry);
+
+                System.out.println("Стоимость доставки составит: " +
+                        costOfDelivery + " руб.");
+                System.out.println("Общая стоимость всех доставок: " +
+                        amountOrders + " руб.");
+                System.out.println("Количество стран, в которые направятся посылки: " +
+                        uniqueCountries.size());
             } else {
                 System.out.println("Доставки по этому адресу нет");
             }
